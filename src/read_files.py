@@ -1,7 +1,6 @@
-from nltk.corpus import stopwords 
-from nltk.tokenize import word_tokenize 
-from nltk import download
+from src.pre_process import remove_stop_words
 import os
+
 
 def __get_folder(pasta:str)->list:
     """
@@ -33,9 +32,12 @@ def __get_ful_path(pasta:str)->list:
         lista.append({"caminho": os.path.join(pasta, nome), "nome":nome.lower()})
     return lista
 
-def __get_files_path() -> list:
+def get_files_path() -> list:
     """
     obtem uma lista dos arquivos
+
+    returns:
+        lista de dicionários {'caminho':'caminho/arquivo.txt', 'nome': 'arquivo.txt'}
     """
     files = []
     inner_folders = __get_folder('arquivos')
@@ -43,28 +45,16 @@ def __get_files_path() -> list:
         files += __get_ful_path(folder)
     return files
 
-def __download_stop_words()->None:
-    """
-    Ação pré requisito da biblioteca
-    baixar as stopwords
-    """
-    download('stopwords')
-    download('punkt')
+def read_file(caminho):
+    words = ''
+    with open(caminho, 'r', encoding='UTF-8') as r:
+        words = remove_stop_words(r.read())
+    return words 
 
-def __remove_stop_words(text:str)->str:
-    
-    stop_wordsPort = set(stopwords.words('portuguese')) 
-    word_tokens = word_tokenize(text) 
-    filtered_sentence = [w for w in word_tokens if not w in stop_wordsPort] 
-    return filtered_sentence
 
-def read_files():
-    files = __get_files_path()
-    __download_stop_words()
-    for fp in files:
-        with open(fp['caminho'], 'r') as r:
-            lista = __remove_stop_words(r.readlines())
-    #with open()
+
+   
+
 
 
     

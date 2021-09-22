@@ -45,7 +45,14 @@ def get_files_path() -> list:
         files += __get_ful_path(folder)
     return files
 
-def read_file(caminho)->list:
+def read_file(caminho:str)->list:
+    """
+    obtem uma lista de palavras carregadas de um arquivo
+    args:
+        caminho:str caminho do arquivo
+    returns:
+        lista de palavras pre-processadas
+    """
     words = []
     with open(caminho, 'r', encoding='UTF-8') as r:
         words = remove_stop_words(r.read())

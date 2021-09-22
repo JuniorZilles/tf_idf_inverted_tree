@@ -5,6 +5,15 @@ from tabulate import tabulate
 
 
 def calculate_similarity(index_docs: dict, busca: str) -> dict:
+    """
+    Calcula a similaridade entre os termos de entrada da busca com relação aos documentos indexados
+    args:
+        index_docs:dict 
+            {"index": {"termo1":{'df': 1, 'idf': 0, 'docs': {'arquivo.txt': 1}}}, "docs": {'termos':{'termo1':{'freq':1}}}}
+        busca:str termos da busca
+    returns:
+        {'documento1':'similaridade', 'documento2': 'similaridade'}
+    """
     consulta = {}
     documentos = {}
     words = remove_stop_words(busca)
@@ -44,6 +53,14 @@ def calculate_similarity(index_docs: dict, busca: str) -> dict:
 
 
 def print_similaritys(similaritys: dict)->None:
+    """
+    imprime uma tabela de similaridade da consulta com os documentos
+
+    args:
+        similaritys:dict 
+            {'documento1':'similaridade', 'documento2': 'similaridade'}
+    """
+
     if len(similaritys) > 0:
         print("\nSimilaridades:\n")
         print(tabulate([similaritys.values()],

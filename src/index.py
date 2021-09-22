@@ -35,14 +35,22 @@ def index_files(files: list) -> dict:
                     documentos[fp['nome']]['termos'][word] = {'freq': 1}
             else:
                 documentos[fp['nome']] = {'max': 1,'termos': {word: {'freq': 1}}}
-
-    for i in indice:
+    orderedindex = {}
+    for i in sorted(indice):
         indice[i]['idf'] = math.log(qtd_doc/indice[i]['df'], 10)
+        orderedindex[i] = indice[i]
         
-    return {"index": indice, "docs": documentos}
+    return {"index": orderedindex, "docs": documentos}
 
 
-def print_index(indice: dict):
+def print_index(indice: list)-> None:
+    """
+    imprime uma tabela contendo o indice invertido
+
+    args:
+        indice:
+             [{"termo1":{'df': 1, 'idf': 0, 'docs': [{'arquivo.txt': 1}]}}]
+    """
     items = []
     for i in indice:
         items.append([i,indice[i]['df'], indice[i]['idf'],indice[i]['docs']])

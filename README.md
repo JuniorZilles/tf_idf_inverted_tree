@@ -36,6 +36,16 @@ pip install -r requirements.txt
 
 Colocar a pasta com os arquivos a indexar dentro da pasta `arquivos`
 
+```
+- arquivos
+    - pasta com arquivos .txt para indexação
+- src
+- LICENSE
+- README.md
+- Requirements.txt
+- run.py
+```
+
 Caso for utilizar linha de comando usar o seguinte comando:
 ```
 python run.py

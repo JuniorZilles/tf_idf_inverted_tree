@@ -1,5 +1,6 @@
 from src.read_files import read_file
 import math
+from tabulate import tabulate
 
 
 def index_files(files: list) -> dict:
@@ -34,15 +35,17 @@ def index_files(files: list) -> dict:
                     documentos[fp['nome']]['termos'][word] = {'freq': 1}
             else:
                 documentos[fp['nome']] = {'max': 1,'termos': {word: {'freq': 1}}}
-    sorted_index = {}
-    for i in sorted(indice):
+
+    for i in indice:
         indice[i]['idf'] = math.log(qtd_doc/indice[i]['df'], 10)
-        sorted_index[i] = indice[i]
-    return {"index": sorted_index, "docs": documentos}
+        
+    return {"index": indice, "docs": documentos}
 
 
 def print_index(indice: dict):
-    print("termo  |  df  |  idf  |  docs")
+    items = []
     for i in indice:
-        print(
-            f"{i}  |  {indice[i]['df']}  |  {indice[i]['idf']}  |  {indice[i]['docs']}")
+        items.append([i,indice[i]['df'], indice[i]['idf'],indice[i]['docs']])
+
+    print(tabulate(items,
+                headers=["termo","df","idf","docs"]))

@@ -45,11 +45,11 @@ def get_files_path() -> list:
         files += __get_ful_path(folder)
     return files
 
-def read_file(caminho):
-    words = ''
+def read_file(caminho)->list:
+    words = []
     with open(caminho, 'r', encoding='UTF-8') as r:
         words = remove_stop_words(r.read())
-    return words 
+    return words
 
 
 

@@ -1,5 +1,5 @@
 import math
-
+from tabulate import tabulate
 
 def tf_idf_documents(index_docs: dict):
     for doc in index_docs['docs']:
@@ -21,10 +21,10 @@ def print_tf_idf(index_docs: dict):
         if lista[0] != None:
             lista[0].append(f"TFIDF_{doc}")
         else:
-            lista[0] = [f"TFIDF_{doc}"]
+            lista[0] = ["Termo", f"TFIDF_{doc}"]
         for termo in index_docs['index']:
             if lista[ind_t] == None:
-                lista[ind_t] = []
+                lista[ind_t] = [termo]
             if termo in index_docs['docs'][doc]['termos']:
                 lista[ind_t].append(index_docs['docs'][doc]
                                     ['termos'][termo]['tfidf'])
@@ -32,5 +32,5 @@ def print_tf_idf(index_docs: dict):
                 lista[ind_t].append(0)
             ind_t += 1
         ind_t = 1
-    for x in lista:
-        print(x)
+    print(tabulate(lista[1:],
+                headers=lista[0]))

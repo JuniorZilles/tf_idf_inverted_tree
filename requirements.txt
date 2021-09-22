@@ -1,2 +1,3 @@
 nltk>=3.6.2
 unidecode
+tabulate>=0.8.9

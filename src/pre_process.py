@@ -20,4 +20,4 @@ def remove_stop_words(text:str)->str:
     stop_words_port = set(stopwords.words('portuguese')) 
     word_tokens = word_tokenize(text_rep) 
     filtered_sentence = [unidecode(w) for w in word_tokens if not w in stop_words_port] 
-    return filtered_sentence
+    return sorted(filtered_sentence)

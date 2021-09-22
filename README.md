@@ -35,3 +35,10 @@ pip install -r requirements.txt
 ## Usage <a name = "usage"></a>
 
 Colocar a pasta com os arquivos a indexar dentro da pasta `arquivos`
+
+Caso for utilizar linha de comando usar o seguinte comando:
+```
+python run.py
+```
+
+Pela IDE executar o arquivo run.py utilizando o F5

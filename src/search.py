@@ -31,7 +31,7 @@ def calculate_similarity(index_docs: dict, busca: str) -> dict:
         idf = 0
         if c in index_docs['index']:
             idf = index_docs['index'][c]['idf']
-        consulta[c]['w'] = (alfa + ((alfa*consulta[c]['freq'])/f_maximo))*idf
+        consulta[c]['w'] = (alfa + (((1-alfa)*consulta[c]['freq'])/f_maximo))*idf
         consulta[c]['quad'] = consulta[c]['w']**2
         if c in index_docs['index']:
             for doc in index_docs['index'][c]['docs']:

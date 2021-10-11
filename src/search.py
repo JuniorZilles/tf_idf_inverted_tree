@@ -66,6 +66,6 @@ def print_similaritys(similaritys: dict)->None:
         print(tabulate([similaritys.values()],
                     headers=list(similaritys.keys())))
         print("\nRanking:\n")
-        print(tabulate([list(similaritys.keys())],headers=[x for x in range(1, len(similaritys.keys())+1)]))
+        print(tabulate([list(similaritys.keys())],headers=[x for x in range(0, len(similaritys.keys()))]))
     else:
         print("A consulta não retornou documentos relevantes")

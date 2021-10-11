@@ -4,6 +4,7 @@ from src.pre_process import download_stop_words
 from src.index import index_files, print_index
 from src.tf_idf import tf_idf_documents, print_tf_idf
 from src.search import calculate_similarity, print_similaritys
+from src.measures import calculate_measures, print_documents, print_measure
 
 
 def main():
@@ -36,6 +37,14 @@ def main():
             similaritys = calculate_similarity(indexed, consulta)
 
             print_similaritys(similaritys)
+
+            print_documents(indexed)
+
+            relevants = str(input("Which documents are relevant (split each using ',', eg. 1,3,5):"))
+
+            measure = calculate_measures(relevants, similaritys, indexed)
+
+            print_measure(measure)
 
             run = int(input("Do another search: 0 - no; 1 - yes\n"))
     except Exception as e:

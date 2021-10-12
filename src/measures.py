@@ -26,7 +26,7 @@ def calculate_measures(relevants: str, retrieved: dict, indexed: dict) -> dict:
     rec_total = len(retrived_list)
     rel_total = len(relevants)
 
-    recall_list = [0]
+    recall_list = [0.0]
     precision_list = [1.0]
 
     precision = 0
@@ -43,7 +43,7 @@ def calculate_measures(relevants: str, retrieved: dict, indexed: dict) -> dict:
             rec_rel += 1
             relevant = True
 
-        c_recall = recall_measure(count, rec_rel)
+        c_recall = recall_measure(rel_total, rec_rel)
         c_precision = precision_measure(count, rec_rel)
         recall_list.append(c_recall)
         precision_list.append(c_precision)
@@ -112,6 +112,15 @@ def print_documents(indexed: dict) -> None:
 
 
 def print_measure(measures:dict)-> None:
+    """
+    Mostra os valores obtidos no cálculo de cada medida de avalição
+    args:
+        measures:dict {
+            "precion": precision, "recall": recall, 
+            "f_measure": f_measure, "avg_prec": avg_prec, 
+            "recall_list": recall_list, "precision_list": precision_list
+        }
+    """
     print(f"precision: {measures['precision']}")
     print(f"recall: {measures['recall']}") 
     print(f"f_measure: {measures['f_measure']}") 

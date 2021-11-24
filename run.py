@@ -6,6 +6,7 @@ from src.tf_idf import tf_idf_documents, print_tf_idf
 from src.search import calculate_similarity, print_similaritys
 from src.measures import calculate_measures, print_documents, print_measure
 from src.plot import plot_graphics
+from src.rocchio import execute_rocchio, extract_terms
 
 
 def main():
@@ -32,27 +33,38 @@ def main():
 
         run = 1
         while run != 0:
-            consulta = str(input("Search:\n"))
-            
-            print("Computing similarity ...")
-            similaritys = calculate_similarity(indexed, consulta)
-
-            print_similaritys(similaritys)
-
             print_documents(indexed)
 
             relevants = str(input("Which documents are relevant (split each using ',', eg. 1,3,5):"))
 
-            print("Computing measures ...")
-            measure = calculate_measures(relevants, similaritys, indexed)
+            consulta = str(input("Search:\n"))
+            
+            search_process(indexed, consulta, relevants)
 
-            print_measure(measure)
+            alfa = float(input("set alfa value:"))
+            beta = float(input("set beta value:"))
+            gama = float(input("set gama value:"))
+            rocchio = execute_rocchio(indexed, relevants, consulta, alfa, beta, gama)
+            new_search = extract_terms(rocchio)
 
-
-            print("Plotting graphics ...")
-            plot_graphics(measure)
+            search_process(indexed, new_search, relevants)
+            
 
             run = int(input("Do another search: 0 - no; 1 - yes\n"))
     except Exception as e:
         traceback.print_exc()
+
+def search_process(indexed, consulta, relevants):
+    print("Computing similarity ...")
+    similaritys = calculate_similarity(indexed, consulta)
+
+    print_similaritys(similaritys)
+
+    print("Computing measures ...")
+    measure = calculate_measures(relevants, similaritys, indexed)
+
+    print_measure(measure)
+
+    print("Plotting graphics ...")
+    plot_graphics(measure)
 main()

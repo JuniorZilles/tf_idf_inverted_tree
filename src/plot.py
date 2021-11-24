@@ -59,8 +59,11 @@ def build_eleven_point_list(precision: list, recall: list) -> list:
     eleven_prec = []
     pos = 0
     for p in POINTS:
-        while recall[pos] < p:
-            pos += 1
+        if pos < len(recall) -1:
+            while recall[pos] < p:
+                pos += 1
+        else:
+            pos +=1
         if pos + 1 >= len(precision):
             eleven_prec.append(0.0)
         else:

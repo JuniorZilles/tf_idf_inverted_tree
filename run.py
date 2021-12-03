@@ -30,7 +30,6 @@ def main():
         show_tf = int(input("Show vector model: 0 - no; 1 - yes\n"))
         if show_tf == 1:
             print_tf_idf(indexed)
-
         run = 1
         while run != 0:
             print_documents(indexed)
@@ -38,17 +37,30 @@ def main():
             relevants = str(input("Which documents are relevant (split each using ',', eg. 1,3,5):"))
 
             consulta = str(input("Search:\n"))
-            
-            search_process(indexed, consulta, relevants)
 
             alfa = float(input("set alfa value:"))
-            beta = float(input("set beta value:"))
-            gama = float(input("set gama value:"))
-            rocchio = execute_rocchio(indexed, relevants, consulta, alfa, beta, gama)
-            new_search = extract_terms(rocchio)
 
-            search_process(indexed, new_search, relevants)
-            
+            beta = float(input("set beta value:"))
+
+            gama = float(input("set gama value:"))
+
+            runRocchio = 1
+            while runRocchio != 0:
+
+                rocchio = execute_rocchio(indexed, relevants, consulta, alfa, beta, gama)
+
+                new_search = extract_terms(rocchio)
+
+                search_process(indexed, new_search, relevants)
+                
+                print_documents(indexed)
+
+                runRocchio = int(input("Execute rocchio again: 0 - no; 1 - yes\n"))
+
+                if runRocchio == 1:
+                    relevants = str(input("Which documents are relevant (split each using ',', eg. 1,3,5):"))
+                
+                    search_process(indexed, consulta, relevants)
 
             run = int(input("Do another search: 0 - no; 1 - yes\n"))
     except Exception as e:
